@@ -1,3 +1,4 @@
+// 트로피 진열
 [testCase, ...arr] = require("fs")
   .readFileSync("예제.txt")
   .toString()
