@@ -28,4 +28,4 @@ for (let i = 0; i < arr.length; i++) {
   }
 }
 
-console.log(prvArr.length, re_prvArr.length);
+// console.log(prvArr.length, re_prvArr.length);
