@@ -10,8 +10,7 @@
   .trim()
   .split("\n");
 
-row = test_case[0];
-col = test_case.at(-1);
+const [row, col] = test_case.split(" ").map((e) => Number(e));
 let answerRow = [];
 let answerCol = 0;
 
@@ -22,8 +21,10 @@ for (let i = 0; i < row; i++) {
     if (v == "X" && !answerRow.includes(idx)) answerRow.push(idx);
     idx++;
   }
-  if (!matrixRow.includes("X")) answerCol += 1;
+  if (!matrixRow.includes("X")) {
+    answerCol += 1;
+  }
 }
 
-console.log(answerCol, answerRow);
+console.log(answerCol, answerRow, matrix);
 console.log(Math.max(answerCol, col - answerRow.length));
