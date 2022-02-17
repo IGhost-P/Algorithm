@@ -12,24 +12,23 @@ let result = "";
 let root = -1;
 let x = 1;
 let levelDepth = 1;
-let levelMin = [testCase];
-let levelMax = [0];
+// let levelMin = [testCase];
+// let levelMax = [0];
 
 class Tree {
   constructor(value, left, right) {
-    this.parent = -1;
+    this.parent = -1; // 루트가 무조건 1에서 시작하지 않기 때문에, 마지막까지 parent가 없다면(still -1이라면) 루트 노드이다
     this.value = value;
     this.left = left;
     this.right = right;
   }
 }
+let levelMin = new Array(testCase + 1).fill(testCase);
+let levelMax = new Array(testCase + 1).fill(0);
 
 for (let i = 1; i <= testCase; i++) {
-  tree[i] = new Tree(i, -1, -1);
-  levelMin.push(testCase);
-  levelMax.push(0);
+  tree[i] = new Tree(i, -1, -1); // 먼저 초기화를 해준다
 }
-// tree = tree.slice(1);
 
 const inorder = (node, level) => {
   levelDepth = Math.max(levelDepth, level);
