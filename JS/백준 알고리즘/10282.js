@@ -74,7 +74,7 @@ testCase = input.shift();
 
 function solutuion() {
   for (let i = 0; i < testCase; i++) {
-    if (!input[i]) return;
+    if (!input) return;
     [num, depend, startCom] = input.shift().split(" ").map(Number);
     // console.log(num, depend, startCom); // 시작 확인
     arr = input.splice(0, depend);
@@ -91,7 +91,7 @@ function solutuion() {
     // console.log(network); // 네트워크 확인
     doneTime = dijkstra(network, startCom, doneTime);
     doneTime = doneTime.filter((v) => isFinite(v));
-    console.log(doneTime.length, Math.max(...doneTime));
+    console.log(doneTime.length, Math.max(...doneTime), i);
   }
 }
 
