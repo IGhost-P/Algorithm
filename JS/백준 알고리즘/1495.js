@@ -29,37 +29,14 @@ i 번째 곡  => V[i]에서 선택해서 볼륨을 바꿈 [1번 노래, 2번 노
 = 7이리면 = 7 + 7 = 14(ㄴㄴ) , 7-7 = 0 (ㅇㅇ)
 = 3이라면 = 3 + 7 = 10(ㅇㅇ) , 3 - 7 = -4 (ㄴㄴ)
 
-재귀식으로 풀면 될라나? 
-
 일단 0~M까지의 리스트를 만들자 그리고
-at으로 try catch 하면 될거 같은데..? => 재귀적으로 접근해야할듯
-[True,True,True,True,True,True,True,True,True,True,True]
+[false,false,false,false,false,false,false,false,false,false,]
+에서 가능하면 True 아니면 false로 접근하면 될듯
 
 
  */
 testCase = require("fs").readFileSync("예제.txt").toString().trim().split("\n");
-let N, S, M, V, i;
-let answer = [];
-
-function DF(volume, i) {
-  if (i + 1 == N) {
-    if (0 <= volume + V[i] && volume + V[i] <= M) {
-      answer.push(volume + V[i]);
-    }
-
-    if (0 <= volume - V[i] && volume - V[i] <= M) {
-      answer.push(volume - V[i]);
-    }
-  }
-
-  if (0 <= volume + V[i] && volume + V[i] <= M) {
-    DF(volume + V[i], i + 1);
-  }
-
-  if (0 <= volume - V[i] && volume - V[i] <= M) {
-    DF(volume - V[i], i + 1);
-  }
-}
+let N, S, M, V, i, answer;
 
 function solution(testCase) {
   // 1st
@@ -69,12 +46,35 @@ function solution(testCase) {
   V = testCase[1].split(" ").map(Number);
 
   // set range
+  let dp = Array.from({ length: N + 1 }, () => Array(M + 1).fill(false));
 
   // set S
-  nowVolume = S;
-  DF(nowVolume, 0);
+  dp[0][S] = true;
 
-  console.log(answer.length == 0 ? -1 : Math.max(...answer));
+  for (let i = 1; i <= N; i++) {
+    for (let j = 0; j <= M; j++) {
+      // 첫번째줄 무시
+
+      if (dp[i - 1][j] == false) {
+        continue;
+      }
+      if (j - V[i - 1] >= 0) {
+        dp[i][j - V[i - 1]] = true;
+      }
+      if (j + V[i - 1] <= M) {
+        dp[i][j + V[i - 1]] = true;
+      }
+    }
+  }
+
+  answer = -1;
+  for (let i = M; i >= 0; i--) {
+    if (dp[N][i] == true) {
+      answer = i;
+      break;
+    }
+  }
+  console.log(answer);
 }
 
 solution(testCase);
