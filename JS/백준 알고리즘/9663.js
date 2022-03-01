@@ -41,8 +41,9 @@ const solution = (x) => {
     answer++;
   } else {
     for (let i = 0; i < testCase; i++) {
-      row[x] = i;
-      console.log(row, row[x], i, x);
+      row[x] = i; // 퀸을 넣음
+
+      // 다음행 으로 넘어가서 확인
       if (check(x)) {
         solution(x + 1);
       }
