@@ -20,10 +20,11 @@ testCase = require("fs")
   .split("\n");
 
 [row, col] = testCase.shift().split(" ").map(Number);
-arr = testCase.map((line) => line.split("").map((c) => c.charCodeAt(0) - 65));
-
+arr = testCase.map((line) => line.split("").map((c) => c.charCodeAt(0) - 65)); // 숫자로 바꿔버림
+console.log(arr);
 const visited_a = Array(26).fill(false);
 visited_a[arr[0][0]] = true;
+p = [];
 let length = 0;
 let max = 0;
 const check = (r, c) => {
@@ -39,9 +40,11 @@ const check = (r, c) => {
 
     if (nx >= 0 && nx < row && ny >= 0 && ny < col && !visited_a[arr[nx][ny]]) {
       visited_a[arr[nx][ny]] = true;
+      p.push(arr[nx][ny]);
       check(nx, ny);
     }
   }
+
   length--;
   visited_a[arr[r][c]] = false;
 };
