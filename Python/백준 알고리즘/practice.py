@@ -1,9 +1,4 @@
-input_num = [(1, 2), (1, 3), (1, 4), (1, 5), (1, 8), (1, 7)]
-input_num_2 = [(1, 7), (1, 6), (1, 5), (1, 4), (1, 2), (1, 3)]
-print(sorted(input_num_2, key=lambda x: x[0]))
-# 둘다 [(1, 2), (1, 3), (1, 4), (1, 5), (1, 7), (1, 8)]
-
-
-input_num_A = [(1, 'A'), (1, 'B'), (1, 'C'), (1, 'D'), (1, 'F'), (1, 'E')]
-#print(sorted(input_num_A, key=lambda x: x[0]))
-# [(1, 'A'), (1, 'B'), (1, 'C'), (1, 'D'), (1, 'F'), (1, 'E')]
+# string = input("7문자 이상 문자열을 입력하시오")
+string = "Hello World"
+m = string[:3] + string[-3:-1]  # -1 전까지..
+print(m)
