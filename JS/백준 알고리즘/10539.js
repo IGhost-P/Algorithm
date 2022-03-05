@@ -46,4 +46,5 @@ const solution = (B) => {
   }
   console.log(A.join(" "));
 };
+
 solution(B);
