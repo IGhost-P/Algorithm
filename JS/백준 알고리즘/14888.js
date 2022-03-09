@@ -5,7 +5,8 @@
 둘째줄 연살할 수
 셋째줄 연산자개수
 
-첫번째 수 + 연산자 = 결과 다시 또 보내고 , 두번째 반복...
+DFS로 조합을 돌리면 될듯?
+
 */
 
 testCase = require("fs")
@@ -19,4 +20,20 @@ arr = testCase.shift().split(" ").map(Number);
 [add, mius, multy, divi] = testCase[0].split(" ").map(Number);
 answer = [];
 
-const makeAns = (no, arr, i) => {};
+let maximum = -1e9;
+let minimum = 1e9;
+const make = (depth, total, add, mius, multy, divi) => {
+  if (num == depth) {
+    maximum = Math.max(total, maximum);
+    minimum = Math.min(total, minimum);
+    return;
+  }
+  if (add) make(depth + 1, total + arr[depth], add - 1, mius, multy, divi);
+  if (mius) make(depth + 1, total - arr[depth], add, mius - 1, multy, divi);
+  if (multy) make(depth + 1, total * arr[depth], add, mius, multy - 1, divi);
+  if (divi)
+    make(depth + 1, parseInt(total / arr[depth]), add, mius, multy, divi - 1);
+};
+
+make(1, arr[0], add, mius, multy, divi);
+console.log(maximum + "\n" + minimum);
