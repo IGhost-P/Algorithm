@@ -1,4 +1,16 @@
-# string = input("7문자 이상 문자열을 입력하시오")
-string = "Hello World"
-m = string[:3] + string[-3:-1]  # -1 전까지..
-print(m)
+from unittest import result
+
+
+def dfs(level, BeginWith):
+    if level == r:
+        print(result)
+        return
+    for i in range(BeginWith, len(n)):
+        result[level] = n[i]
+        dfs(level + 1, i + 1)
+
+
+n = [i + 1for i in range(10)]
+r = 3
+result = [0] * r
+dfs(0, 0)
