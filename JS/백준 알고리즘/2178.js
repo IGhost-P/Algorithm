@@ -1,6 +1,6 @@
 // 2178 : 미로 탐색
 /*
-bfs 를 돌리는데 
+bfs 를 돌리는데
 return이 n,m일때 돌리면될듯
 상하좌우만 생각하고, 항상 도착 위치로 갈수있기때문에 문제없을것 같다
 */
@@ -40,4 +40,4 @@ const dfs = (x, y) => {
 };
 
 dfs(0, 0);
-console.log(map[n - 1][m - 1], map);
+console.log(map[n - 1][m - 1]);
