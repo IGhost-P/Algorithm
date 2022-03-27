@@ -37,3 +37,5 @@ for (let i = 1; i <= N; i++) {
 
 console.log(dp);
 console.log(Math.max(...dp.flat()));
+
+// 이상하네 이게 왜 안됨..?
