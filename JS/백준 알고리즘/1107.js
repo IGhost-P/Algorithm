@@ -25,50 +25,19 @@ testCase = require("fs")
 N = testCase.shift();
 M = Number(testCase.shift());
 target = N;
-remainNum = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-arr = testCase[0] ? testCase[0].split(" ").map(Number) : [];
-arr = arr.sort((a, b) => a - b);
-answer = "";
-flag = false;
-const solution = () => {
-  cnt = 0;
-  if (N == 100) {
-    return console.log(0);
-  }
-  remainNum = remainNum.filter((num) => !arr.includes(num));
+broken = testCase[0] ? testCase[0].split(" ").map(Number) : [];
+answer = Math.abs(100 - target);
+let a = new Set();
 
-  //   console.log(remainNum, arr);
+for (let i = 0; i < 1000001; i++) {
+  strArr = [...String(i)];
 
-  N = [...N].map(Number);
-  Nlen = N.length;
-  for (let i = 0; i < Nlen; i++) {
-    farNum = new Array(remainNum.length).fill(0);
-    if (N.length < 1) {
-      return console.log(cnt);
-    }
-
-    if (remainNum.includes(N[0])) {
-      answer += N.shift();
-      cnt++;
-    } else {
-      remainNum.forEach((num, idx) => {
-        farNum[idx] = [Math.abs(num - N[0]), idx];
-      });
-      farNum.sort((a, b) => a[0] - b[0]);
-
-      answer += remainNum[farNum[0][1]];
-      //   console.log(farNum[0][0]);
-      cnt++;
-      //   console.log("차이", farNum[0][0]);
-
-      N.length > 1 ? (flag = true) : (cnt += farNum[0][0]);
-      console.log(answer, cnt, N, remainNum);
+  for (let j = 0; j < String(i).length; j++) {
+    if (broken.includes(Number(strArr[j]))) {
+      break;
+    } else if (j == String(i).length - 1) {
+      answer = Math.min(answer, String(i).length + Math.abs(i - target));
     }
   }
-  answer = answer.replace(/(^0+)/, "");
-  console.log("답", answer);
-  console.log(
-    (cnt += flag && answer.length > 0 ? Math.abs(target - answer) : 0)
-  );
-};
-solution();
+}
+console.log(answer);
