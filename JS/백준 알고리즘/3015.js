@@ -33,15 +33,37 @@
   .split("\n")
   .map(Number);
 
-const stack = [];
-const answer = new Array(N).fill(0);
-mius = 0;
+const stackHeight = [];
+const stackCnt = [];
+const map = new Map();
+let answer = 0;
+
 for (let i = 0; i < N; i++) {
-  while (stack.length && arr[i] > arr[stack[stack.length - 1]]) {
-    const index = stack.pop();
-    answer[index] += i - index;
+  // console.log(arr[i], stackCnt, stackHeight);
+  while (stackHeight.length && arr[i] > stackHeight[stackHeight.length - 1]) {
+    stackHeight.pop();
+    answer += stackCnt.pop();
   }
-  stack.push(i);
+  if (stackHeight.length === 0) {
+    stackHeight.push(arr[i]);
+    stackCnt.push(1);
+  } else {
+    if (arr[i] == stackHeight[stackHeight.length - 1]) {
+      // console.log(arr[i], stackCnt, stackHeight);
+      stackHeight.pop();
+      cnt = stackCnt.pop();
+      answer += cnt;
+      if (stackHeight.length !== 0) {
+        answer += 1;
+      }
+      stackHeight.push(arr[i]);
+      stackCnt.push(cnt + 1);
+    } else {
+      stackHeight.push(arr[i]);
+      stackCnt.push(1);
+      answer += 1;
+    }
+  }
 }
 
-console.log(eval(answer.join("+")), answer);
+console.log(answer);
