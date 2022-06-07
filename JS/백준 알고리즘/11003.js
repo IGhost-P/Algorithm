@@ -99,11 +99,12 @@ const solution = (AList) => {
     }
     answer += Math.min(...queue.getQueue()) + " ";
     if (i % 10000 === 0) {
-      let answer = "";
+      process.stdout.write(answer);
+      answer = "";
     }
   }
 
   return answer;
 };
 
-console.log(solution(AList));
+console.log(solution(AList).trimEnd());
