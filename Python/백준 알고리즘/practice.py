@@ -7,7 +7,7 @@ def dfs(x):
     visited[x] = True
     cycle.append(x)  # 사이클을 이루는 팀을 확인하기 위함
     number = numbers[x]
-    print("사이클", cycle)
+    print("사이클", number, cycle, visited[number])
     if visited[number]:  # 방문가능한 곳이 끝났는지
         if number in cycle:  # 사이클 가능 여부
             result += cycle[cycle.index(number):]  # 사이클 되는 구간 부터만 팀을 이룸
