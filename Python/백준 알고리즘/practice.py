@@ -1,39 +1,30 @@
 import sys
-from collections import deque
-m, n, h = map(int, input().split())  # mn크기, h상자수
-graph = []
-queue = deque([])
+sys.setrecursionlimit(111111)  # 충분한 재귀 깊이를 주어 오류를 예방
 
-for i in range(h):
-    tmp = []
-    for j in range(n):
-        tmp.append(list(map(int, sys.stdin.readline().split())))
-        for k in range(m):
-            if tmp[j][k] == 1:
-                queue.append([i, j, k])
-    graph.append(tmp)
 
-dx = [-1, 1, 0, 0, 0, 0]
-dy = [0, 0, 1, -1, 0, 0]
-dz = [0, 0, 0, 0, 1, -1]
-while(queue):
-    x, y, z = queue.popleft()
+def dfs(x):
+    global result
+    visited[x] = True
+    cycle.append(x)  # 사이클을 이루는 팀을 확인하기 위함
+    number = numbers[x]
+    print("사이클", cycle)
+    if visited[number]:  # 방문가능한 곳이 끝났는지
+        if number in cycle:  # 사이클 가능 여부
+            result += cycle[cycle.index(number):]  # 사이클 되는 구간 부터만 팀을 이룸
+        return
+    else:
+        dfs(number)
 
-    for i in range(6):
-        a = x+dx[i]
-        b = y+dy[i]
-        c = z+dz[i]
-        if 0 <= a < h and 0 <= b < n and 0 <= c < m and graph[a][b][c] == 0:
-            queue.append([a, b, c])
-            graph[a][b][c] = graph[x][y][z]+1
-print('-----------\n', graph)
 
-day = 0
-for i in graph:
-    for j in i:
-        for k in j:
-            if k == 0:
-                print(-1)
-                exit(0)
-        day = max(day, max(j))
-print(day-1)
+for _ in range(int(input())):
+    N = int(input())
+    numbers = [0] + list(map(int, input().split()))
+    visited = [True] + [False] * N  # 방문 여부
+    result = []
+
+    for i in range(1, N+1):
+        if not visited[i]:  # 방문 안한 곳이라면
+            cycle = []
+            dfs(i)  # DFS 함수 돌림
+    print(result)
+    print(N - len(result))  # 팀에 없는 사람 수
