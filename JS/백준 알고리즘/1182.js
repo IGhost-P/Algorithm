@@ -12,7 +12,7 @@
 arr = arr.split(" ").map(Number);
 count = 0;
 
-const sumOfSubsets = (level, weigth, remainTotal) => {
+const sumOfSubsets = (level, weigth) => {
   if (level >= N) {
     return;
   }
