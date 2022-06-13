@@ -1,30 +1,31 @@
-import sys
-sys.setrecursionlimit(111111)  # 충분한 재귀 깊이를 주어 오류를 예방
+
+from xml.etree.ElementInclude import include
+
+n = 5
+W = 0
+w = [0, -7, -3, -2, 5, 8]
+totla = sum(w)
+include = [False] * (n + 1)
 
 
-def dfs(x):
-    global result
-    visited[x] = True
-    cycle.append(x)  # 사이클을 이루는 팀을 확인하기 위함
-    number = numbers[x]
-    print("사이클", number, cycle, visited[number])
-    if visited[number]:  # 방문가능한 곳이 끝났는지
-        if number in cycle:  # 사이클 가능 여부
-            result += cycle[cycle.index(number):]  # 사이클 되는 구간 부터만 팀을 이룸
-        return
+def promising(i, weight, total):
+    if ((weight + total >= W) and (weight == W or weight + w[i+1] <= W)):
+        return True
     else:
-        dfs(number)
+        return False
 
 
-for _ in range(int(input())):
-    N = int(input())
-    numbers = [0] + list(map(int, input().split()))
-    visited = [True] + [False] * N  # 방문 여부
-    result = []
+def sum_of_subsets(i, weight, total):
+    n = len(w) - 1
+    if(promising(i, weight, total)):
+        if weight == W:
+            print(include[1:n + 1])
+        else:
+            include[i + 1] = True
+            sum_of_subsets(i+1, weight + w[i+1], total - w[i+1])
+            include[i + 1] = False
+            sum_of_subsets(i + 1, weight, total - w[i+1])
 
-    for i in range(1, N+1):
-        if not visited[i]:  # 방문 안한 곳이라면
-            cycle = []
-            dfs(i)  # DFS 함수 돌림
-    print(result)
-    print(N - len(result))  # 팀에 없는 사람 수
+
+print(totla)
+sum_of_subsets(0, 0, totla)
