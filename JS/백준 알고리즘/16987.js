@@ -22,38 +22,46 @@
 N = Number(N);
 arr = arr.map((el) => el.split(" ").map(Number));
 answer = 0;
+
 const crash = (nowIndex) => {
-  if (nowIndex == N) {
-    breakEggs = 0;
+  // 1. 마지막 계란까지 왔을때
+  if (nowIndex === N) {
+    breakAggs = 0;
     for (let i = 0; i < N; i++) {
       if (arr[i][0] <= 0) {
-        breakEggs += 1;
+        breakAggs += 1;
       }
     }
-    answer = Math.max(answer, breakEggs);
+    answer = Math.max(answer, breakAggs);
     return;
   }
+
+  // 2. 지금 차례가 이미 깨진 계란이라면? => 넘어간다
 
   if (arr[nowIndex][0] <= 0) {
     crash(nowIndex + 1);
     return;
   }
-
-  isAllBroken = true;
+  // 3. 지금 차례 계란은 괜찮다면, 다른 계란들을 확인한다
+  isAllBroken = true; // 모두 깨진걸 가정
   for (let i = 0; i < N; i++) {
-    if (i === nowIndex) continue;
+    if (nowIndex === i) continue;
     if (arr[i][0] > 0) {
       isAllBroken = false;
       break;
     }
   }
 
+  // 4. 만약 나 빼고 다깨졌다면, 더이상 깰게 없다
   if (isAllBroken) {
     answer = Math.max(answer, N - 1);
+    return;
   }
 
+  // 이것을 재귀적으로 반복, 이렇게 되면 총 3개가 있을때 0과 ->1할때 0과 ->2를 확인할수 있다.
+
   for (let i = 0; i < N; i++) {
-    if (i == nowIndex) continue;
+    if (i === nowIndex) continue;
     if (arr[i][0] <= 0) continue;
     arr[nowIndex][0] -= arr[i][1];
     arr[i][0] -= arr[nowIndex][1];
