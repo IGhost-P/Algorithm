@@ -11,15 +11,13 @@
 N = Number(N);
 arr = arr.map((el) => el.split(" ").map((el) => Number(el)));
 
-// console.log(arr);
-
 const make4 = (arr) => {
   let str = "";
   for (let i = 0; i < arr.length; i++) {
     if (i === 2) {
       str += "-";
     }
-    if (Math.floor(arr[i] / 10) === 0) {
+    if (Math.floor(arr[i] / 10) === 0 && Number(arr[i]) !== 10) {
       str += "0" + arr[i];
     } else {
       str += arr[i];
@@ -29,88 +27,62 @@ const make4 = (arr) => {
 };
 
 const checkStartAble = (str, endDay) => {
-  const [start, end] = str.split("-");
+  const [start, end] = str;
   const startNum = Number(start);
-  const endNum = Number(end);
-  //   console.log(startNum, endDay);
+
   if (startNum <= Number(endDay)) {
     return true;
   }
   return false;
 };
 
-const checkEndAble = (str, endDay) => {
-  const [start, end] = str.split("-");
-  const startNum = Number(start);
+const remainTime = (str, endDay) => {
+  const [start, end] = str;
   const endNum = Number(end);
-
-  //   console.log(endNum, Number(endDay));
-  if (endNum > Number(endDay)) {
-    return true;
-  }
-  return false;
+  return endNum - endDay;
 };
 
-const returnTime = (str) => {
-  const [start, end] = str.split("-");
-  const startNum = Number(start);
-  const endNum = Number(end);
-  return endNum - startNum;
-};
-
-let totalArr = [];
 let number = 0;
 
 for (let i = 0; i < N; i++) {
-  arr[i] = make4(arr[i]);
-  totalArr.push([i, returnTime(arr[i])]);
+  arr[i] = make4(arr[i]).split("-");
 }
 let answerList = [];
-let startDay = 0;
 let endDay = "0301";
 let realEndDay = "1130";
+let len = arr.length;
+let flag = false;
+let max = -Infinity;
+let maxIdx = -Infinity;
 
-totalArr.sort((a, b) => {
-  return b[1] - a[1];
-});
-
-while (totalArr.length > number) {
-  let count = 0;
-
-  //   console.log(startDay, endDay);
-  //   console.log(totalArr, number);
-  for (let i = 0; i < totalArr.length; i++) {
-    if (
-      answerList.length > 0 &&
-      checkEndAble(answerList[answerList.length - 1], realEndDay)
-    ) {
-      number++;
-      break;
-    }
-
-    if (
-      checkStartAble(arr[totalArr[i][0]], endDay) &&
-      checkEndAble(arr[totalArr[i][0]], endDay)
-    ) {
-      startDay = arr[totalArr[i][0]].split("-")[1];
-      endDay = arr[totalArr[i][0]].split("-")[1];
-      answerList.push(arr[totalArr[i][0]]);
-      totalArr.splice(i, 1);
-      count++;
-      number = 0;
-      break;
-    } else {
-      number++;
+while (len > number) {
+  for (let i = 0; i < len; i++) {
+    if (checkStartAble(arr[i], endDay) && remainTime(arr[i], endDay) > 0) {
+      if (max < arr[i][1]) {
+        max = arr[i][1];
+        maxIdx = i;
+      }
     }
   }
+
+  if (maxIdx === -Infinity) {
+    flag = false;
+    break;
+  }
+
+  startDay = arr[maxIdx][0];
+  endDay = arr[maxIdx][1];
+  answerList.push(arr[maxIdx]);
+
+  if (endDay > realEndDay) {
+    flag = true;
+    break;
+  }
+
+  number++;
 }
 
-// console.log(answerList);
-
-if (
-  answerList.length === 0 ||
-  !checkEndAble(answerList[answerList.length - 1], realEndDay)
-) {
+if (answerList.length === 0 || !flag) {
   console.log("0");
   process.exit();
 }
