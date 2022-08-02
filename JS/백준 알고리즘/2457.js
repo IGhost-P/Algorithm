@@ -88,3 +88,5 @@ if (answerList.length === 0 || !flag) {
 }
 
 console.log(answerList.length);
+
+console.log(answerList.length);
