@@ -81,7 +81,6 @@ function solution(pin) {
   if (reChekcNum(reserveStr)) {
     answer = false;
   }
-  //   console.log(answer);
 
   let samefrist = pin[0];
   let sameArr = [...pin];
@@ -93,7 +92,6 @@ function solution(pin) {
     answer = false;
   }
 
-  //   console.log(answer);
 
   return answer;
 }
