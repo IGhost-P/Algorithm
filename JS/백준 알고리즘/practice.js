@@ -27,4 +27,3 @@ function solution(s) {
   return answer;
 }
 
-solution("{{2,2},{2,3}}");
