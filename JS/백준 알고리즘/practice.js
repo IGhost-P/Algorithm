@@ -1,29 +1,19 @@
-const strToArr = (s) => {
-  const sLen = s.length;
-  arr = [];
-  sub = [];
-  cnt = 0;
-  // arr.push(3)
-  for (let i = 0; i < sLen; i++) {
-    if (s[i] === "}" && sub.length > 0) {
-      arr[cnt] = [];
-      arr[cnt].push(sub);
-      sub = [];
-      cnt++;
-    }
-    console.log(sub);
-
-    if (!isNaN(s[i])) {
-      sub.push(s[i]);
+function solution(s) {
+  var answer = 0;
+  s = [...s];
+  number = 1;
+  while (s.length >= number) {
+    if (s[number - 1] == s[number]) {
+      s.splice(number - 1, 2);
+      number = 1;
+    } else {
+      number++;
     }
   }
-  return arr;
-};
-
-function solution(s) {
-  var answer = [];
-  console.log(strToArr(s));
-  // console.log(s.sort((a,b) => a.length - b.length))
+  if (s.length == 0) {
+    return (answer = 1);
+  }
   return answer;
 }
 
+console.log(solution("bcbc"));
