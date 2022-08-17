@@ -1,19 +1,23 @@
-function solution(s) {
-  var answer = 0;
-  s = [...s];
-  number = 1;
-  while (s.length >= number) {
-    if (s[number - 1] == s[number]) {
-      s.splice(number - 1, 2);
-      number = 1;
+[NK, ...worth] = require("fs")
+  .readFileSync(process.platform === "linux" ? "dev/stdin" : "예제.txt")
+  .toString()
+  .trim()
+  .split("\n");
+
+[N, K] = NK.split(" ").map((el) => parseInt(el));
+worth = worth.map((el) => el.split(" ").map((el) => parseInt(el)));
+
+const dp = Array.from({ length: N + 1 }, () => new Array(K + 1).fill(0));
+
+for (let i = 1; i <= N; i++) {
+  const [weight, value] = worth[i - 1];
+  for (let w = 1; w <= K; w++) {
+    if (weight <= w) {
+      dp[i][w] = Math.max(dp[i - 1][w - weight] + value, dp[i - 1][w]);
     } else {
-      number++;
+      dp[i][w] = dp[i - 1][w];
     }
   }
-  if (s.length == 0) {
-    return (answer = 1);
-  }
-  return answer;
 }
 
-console.log(solution("bcbc"));
+console.log(dp[N][K]);
