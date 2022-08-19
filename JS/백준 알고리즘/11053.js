@@ -11,21 +11,44 @@
 
 */
 
+// [testCase, arr] = require("fs")
+//   .readFileSync("예제.txt")
+//   .toString()
+//   .trim()
+//   .split("\n");
+// testCase = Number(testCase);
+// arr = arr.split(" ").map(Number);
+// answerList = new Array(arr.length).fill(1);
+// answer = [];
+
+// for (let i = 0; i < arr.length; i++) {
+//   for (let j = 0; j < i; j++) {
+//     if (arr[i] > arr[j]) {
+//       answerList[i] = Math.max(answerList[i], answerList[j] + 1);
+//     }
+//   }
+// }
+// console.log(Math.max(...answerList));
+
 [testCase, arr] = require("fs")
-  .readFileSync("예제.txt")
+  .readFileSync(process.platform === "linux" ? "/dev/stdin" : "예제.txt")
   .toString()
   .trim()
   .split("\n");
+
 testCase = Number(testCase);
 arr = arr.split(" ").map(Number);
-answerList = new Array(arr.length).fill(1);
-answer = [];
 
-for (let i = 0; i < arr.length; i++) {
+// dp는 해당 위치에서 가징수 있는 가장 긴 증가하는 부분 수열의 길이
+dp = new Array(testCase).fill(1);
+
+for (let i = 0; i < testCase; i++) {
   for (let j = 0; j < i; j++) {
     if (arr[i] > arr[j]) {
-      answerList[i] = Math.max(answerList[i], answerList[j] + 1);
+      console.log(arr[i], arr[j], dp[i], dp[j]);
+      dp[i] = Math.max(dp[i], dp[j] + 1);
     }
   }
 }
-console.log(Math.max(...answerList));
+
+console.log(Math.max(...dp));
