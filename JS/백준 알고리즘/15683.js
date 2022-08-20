@@ -11,29 +11,22 @@
  * 4. #을 체크하는 함수를 만들어, 가장 큰수가 answer
  */
 
-class cctv {
-  constructor(x, y, dx, dy) {
-    this.x = x;
-    this.y = y;
-    this.dx = dx;
-    this.dy = dy;
-  }
+[N, ...arr] = require("fs")
+  .readFileSync(process.platform === "linux" ? "/dev/stdin" : "예제.txt")
+  .toString()
+  .trim()
+  .split("\n");
+N = parseInt(N);
+arr = arr.map((el) => el.split(" ").map((el) => parseInt(el)));
 
-  rotate() {
-    let temp = this.dx;
-    this.dx = -this.dy;
-    this.dy = temp;
-  }
-}
-// rotate를 하고 bfs를 돌리낟
-const bfs = (map, cctv) => {
-    let answer = 0;
-    let queue = [];
-    queue.push([cctv.x, cctv.y]);
-    while (queue.length) {
-        let [x, y] = queue.shift();
-        
-        if()
+console.log(N, arr);
+
+const findCamera = (map, cctv) => {
+  
+  for(let i  = 0 ; i < map.length ; i++){
+    for(let j = 0 ; j < map[0].length ; j++){
+      if(map[i][j] > 0){
+        return [i, j];
+      }
     }
-    return answer;
-}
+  }
