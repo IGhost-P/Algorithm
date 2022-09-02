@@ -1,23 +1,33 @@
-[NK, ...worth] = require("fs")
-  .readFileSync(process.platform === "linux" ? "dev/stdin" : "예제.txt")
-  .toString()
-  .trim()
-  .split("\n");
+Date.prototype.getWeek = function (dowOffset) {
+  /*getWeek() was developed by Nick Baicoianu at MeanFreePath: http://www.meanfreepath.com */
 
-[N, K] = NK.split(" ").map((el) => parseInt(el));
-worth = worth.map((el) => el.split(" ").map((el) => parseInt(el)));
-
-const dp = Array.from({ length: N + 1 }, () => new Array(K + 1).fill(0));
-
-for (let i = 1; i <= N; i++) {
-  const [weight, value] = worth[i - 1];
-  for (let w = 1; w <= K; w++) {
-    if (weight <= w) {
-      dp[i][w] = Math.max(dp[i - 1][w - weight] + value, dp[i - 1][w]);
-    } else {
-      dp[i][w] = dp[i - 1][w];
+  dowOffset = typeof dowOffset == "number" ? dowOffset : 0; // dowOffset이 숫자면 넣고 아니면 0
+  var newYear = new Date(this.getFullYear(), 0, 1);
+  var day = newYear.getDay() - dowOffset; //the day of week the year begins on
+  day = day >= 0 ? day : day + 7;
+  var daynum =
+    Math.floor(
+      (this.getTime() -
+        newYear.getTime() -
+        (this.getTimezoneOffset() - newYear.getTimezoneOffset()) * 60000) /
+        86400000
+    ) + 1;
+  var weeknum;
+  //if the year starts before the middle of a week
+  if (day < 4) {
+    weeknum = Math.floor((daynum + day - 1) / 7) + 1;
+    if (weeknum > 52) {
+      let nYear = new Date(this.getFullYear() + 1, 0, 1);
+      let nday = nYear.getDay() - dowOffset;
+      nday = nday >= 0 ? nday : nday + 7;
+      /*if the next year starts before the middle of
+        the week, it is week #1 of that year*/
+      weeknum = nday < 4 ? 1 : 53;
     }
+  } else {
+    weeknum = Math.floor((daynum + day - 1) / 7);
   }
-}
+  return weeknum;
+};
 
-console.log(dp[N][K]);
+console.log(new Date().getWeek(6));

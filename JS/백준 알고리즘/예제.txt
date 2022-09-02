@@ -1,2 +1,4 @@
-10 100
-32 23 42 2 94 3 1 45 37 4
+3
+BB enter
+DA enter
+DA leave
