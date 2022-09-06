@@ -30,4 +30,4 @@ for (let [key, value] of map.entries()) {
   }
 }
 
-console.log(answer.reverse().join("\n"));
+console.log(answer.sort().reverse().join("\n"));
