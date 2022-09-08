@@ -1,16 +1,30 @@
-function solution(left, right) {
-  var answer = 0;
+const bfs = (row, col) => {
+  let queue = [[row, col]];
+  let count = 0;
+  let visited = Array.from(Array(rowLen), () => Array(colLen).fill(false));
+  visited[row][col] = true;
 
-  for (let i = left; i <= right; i++) {
-    const arr = new Array(i).fill(0).map((v, i) => i + 1);
-    const measureArrLen = arr.filter((v) => i % v === 0).length;
+  while (queue.length > 0) {
+    let [r, c] = queue.pop();
+    if (r === rowLen - 1 && c === colLen - 1) return count;
 
-    if (measureArrLen % 2 === 0) {
-      answer += i;
-    } else {
-      answer -= i;
+    const dr = [-1, 1, 0, 0];
+    const dc = [0, 0, -1, 1];
+
+    for (let i = 0; i < 4; i++) {
+      let nr = r + dr[i];
+      let nc = c + dc[i];
+      if (nr < 0 || nr >= rowLen || nc < 0 || nc >= colLen) continue;
+      if (visited[nr][nc]) continue;
+      if (map[nr][nc] === 0) continue;
+      visited[nr][nc] = true;
+      queue.push([nr, nc]);
     }
+    count++;
   }
-  return answer;
+};
+function solution(maps) {
+  dfs(0, 0);
+
+  return "";
 }
-console.log(solution(13, 17));
