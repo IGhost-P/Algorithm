@@ -1,13 +1,18 @@
-arr = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8, 9],
-];
-
-arr.forEach((el, idx) => {
-  el.forEach((el2, idx2) => {
-    console.log(idx, idx2);
-    queue = [[2, 2]];
-    [idx, idx2] = queue.shift();
+function createReactiveObject(target, callback) {
+  const proxy = new Proxy(target, {
+    set(obj, prop, value) {
+      if (value != obj[prop]) {
+        const prev = obj[prop];
+        obj[prop] = value;
+        callback(`Property ${prop} changed from ${prev} to ${value}`);
+      }
+      return true;
+    },
   });
-});
+  return proxy;
+}
+
+const a = { name: "John", age: 25 };
+const b = createReactiveObject(a, (message) => console.log(message));
+b.name = "Jane2";
+b.age = 26;
