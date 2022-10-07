@@ -36,6 +36,7 @@ class Heap {
   }
   size() {
     return this.items.length;
+    ㄹ;
   }
 }
 class MinHeap extends Heap {
