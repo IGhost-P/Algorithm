@@ -115,29 +115,6 @@
 //  */
 
 // function getMaximumRemovals(order, source, target) {
-//   //   let orderLen = order.length;
-//   //   let orderTarget = [];
-//   //   let targetIndex = [];
-//   //   [...source].forEach((s, i) => {
-//   //     let orderMap = new Map();
-//   //     [...target].forEach((t, j) => {
-//   //       if (s === t) {
-//   //         orderMap.set(t, i + 1);
-//   //         targetIndex.push(i + 1);
-//   //       }
-//   //     });
-//   //     if (orderMap.size > 0) {
-//   //       orderTarget.push(orderMap.get(s));
-//   //     }
-//   //   });
-
-//   //   console.log(targetIndex);
-//   //   console.log(orderTarget);
-//   //   for (let i = 0; i < orderLen; i++) {
-//   //     if (targetIndex.includes(order[i])) {
-//   //       targetIndex.splice(targetIndex.indexOf(order[i]), 1);
-//   //     }
-//   //   }
 //   // Write your code here
 //   let orderLen = order.length;
 //   let targetIndex = new Set();
