@@ -39,3 +39,5 @@ console.log(
     [0, 0, 1],
   ])
 );
+
+// comiit 지우기 1
